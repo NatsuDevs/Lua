@@ -49,7 +49,7 @@ getgenv().Aiming = {
     Selected = nil,
     SelectedPart = nil,
 
-    TargetPart = {"Head", "HumanoidRootPart", "LowerTorso", "UpperTorso"},
+    TargetPart = {},
 
     Ignored = {
         Teams = {
@@ -65,6 +65,33 @@ getgenv().Aiming = {
         }
     }
 }
+
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if v:IsA("BasePart") then
+            table.insert(getgenv().Aiming.SelectedPart, v.Name)    
+        end
+    end     
+    local Aiming = getgenv().Aiming
+else
+    task.spawn(function()
+        do
+            do
+                repeat
+                    wait(0.2)
+                until game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                    if v:IsA("BasePart") then
+                        table.insert(getgenv().Aiming.SelectedPart, v.Name)    
+                    end
+                end     
+            end
+        end
+    end)
+    local Aiming = getgenv().Aiming
+end
+
 local Aiming = getgenv().Aiming
 
 -- // Create circle
